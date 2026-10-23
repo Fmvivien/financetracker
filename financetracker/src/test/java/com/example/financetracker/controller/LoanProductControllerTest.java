@@ -96,6 +96,7 @@ class LoanProductControllerTest {
         assertEquals("Új Corporate Hitel", mentett.getName());
         assertEquals(40000000.0, mentett.getMaxAmount());
     }
+
     @Test
     void testLoanProductGettersAndSetters() {
         // GIVEN
