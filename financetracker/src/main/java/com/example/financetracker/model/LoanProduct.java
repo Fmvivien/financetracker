@@ -12,16 +12,14 @@ public class LoanProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;            // Hiteltermék neve
-    private double maxAmount;       // Maximálisan igényelhető hitelösszeg (Ft)
-    private String creditType;      // Hitel típusa (pl. Beruházási, Forgóeszköz)
-    private LocalDate lastUpdated;  // Utolsó banki kondíciós lista frissítés
+    private String name;
+    private double maxAmount;
+    private String creditType;
+    private LocalDate lastUpdated;
 
-    // Alapértelmezett konstruktor
     public LoanProduct() {
     }
 
-    // Konstruktor a mintaadatokhoz
     public LoanProduct(String name, double maxAmount, String creditType, LocalDate lastUpdated) {
         this.name = name;
         this.maxAmount = maxAmount;
@@ -29,7 +27,6 @@ public class LoanProduct {
         this.lastUpdated = lastUpdated;
     }
 
-    // Getterek és Setterek
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
