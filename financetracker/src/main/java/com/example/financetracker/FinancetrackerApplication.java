@@ -18,11 +18,14 @@ public class FinancetrackerApplication {
 	@Bean
 	public CommandLineRunner demoData(LoanProductRepository repository) {
 		return args -> {
-			repository.save(new LoanProduct("Széchenyi Kártya Folyószámlahitel Max+", 100000000.0, "Folyószámlahitel", LocalDate.now()));
-			repository.save(new LoanProduct("Garantiqa Kezességgel biztosított Forgóeszközhitel", 250000000.0, "Forgóeszköz", LocalDate.now()));
-			repository.save(new LoanProduct("MBH Beruházási és Fejlesztési Hitel", 500000000.0, "Beruházás", LocalDate.now()));
-
-			System.out.println(">> Nyilvános banki hiteltermékek sikeresen betöltve a H2-be! <<");
+			if (repository.count() == 0) {
+				repository.save(new LoanProduct("Széchenyi Kártya Folyószámlahitel Max+", 100000000.0, "Folyószámlahitel", LocalDate.now()));
+				repository.save(new LoanProduct("Garantiqa Kezességgel biztosított Forgóeszközhitel", 250000000.0, "Forgóeszközhitel", LocalDate.now()));
+				repository.save(new LoanProduct("MFB Beruházási és Fejlesztési Hitel", 500000000.0, "Beruházás", LocalDate.now()));
+				System.out.println(">> Nyilvános banki hiteltermékek sikeresen betöltve a MySQL adatbázisba! <<");
+			} else {
+				System.out.println(">> Az adatbázis már tartalmaz adatokat, az inicializálás átugorva. <<");
+			}
 		};
 	}
 }
