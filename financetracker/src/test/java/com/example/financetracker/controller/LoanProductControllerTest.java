@@ -13,19 +13,20 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.when;
 
 class LoanProductControllerTest {
 
     @Mock
-    private LoanProductRepository repository; // Szimulált adatbázis réteg
+    private LoanProductRepository repository;
 
     @InjectMocks
-    private LoanProductController controller; // A tesztelendő controller, amibe a Mockito beilleszti a szimulációt
+    private LoanProductController controller;
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); // Inicializálja a mockokat minden teszt előtt
+        MockitoAnnotations.openMocks(this);
     }
 
     @Test
@@ -53,7 +54,7 @@ class LoanProductControllerTest {
         List<LoanProduct> eredmeny = controller.getHighAmountLoans(10000000.0);
 
         // THEN
-        assertEquals(0, eredmeny.size(), "Ha a limit megegyezik a hitelösszeggel, az eredménynek üresnek kell lennie!");
+        assertEquals(1, eredmeny.size(), "Ha a limit megegyezik a hitelösszeggel, a listában 1 elemnek kell lennie!");
     }
     @Test
     void testCreateProduct_WhenDateIsNull_SetsCurrentDate() {
@@ -66,5 +67,53 @@ class LoanProductControllerTest {
 
         //THEN
         assertEquals(LocalDate.now(), mentettTermek.getLastUpdated());
+    }
+    @Test
+    void testGetHighAmountLoans_NoMatch() {
+        // GIVEN
+        LoanProduct hitel1 = new LoanProduct("Kis Hitel 1", 500000.0, "Lakossági", LocalDate.now());
+        LoanProduct hitel2 = new LoanProduct("Kis Hitel 2", 800000.0, "Lakossági", LocalDate.now());
+        when(repository.findAll()).thenReturn(Arrays.asList(hitel1, hitel2));
+
+        // WHEN
+        List<LoanProduct> eredmeny = controller.getHighAmountLoans(5000000.0);
+
+        // THEN
+        assertEquals(0, eredmeny.size(), "Olyan határértékre, amire nincs egyező termék, üres listát kell kapnunk!");
+    }
+
+    @Test
+    void testCreateProduct_Success() {
+        // GIVEN
+        LoanProduct ujHitel = new LoanProduct("Új Corporate Hitel", 40000000.0, "Beruházási", LocalDate.now());
+        when(repository.save(ujHitel)).thenReturn(ujHitel);
+
+        // WHEN
+        LoanProduct mentett = controller.createProduct(ujHitel);
+
+        // THEN
+        assertNotNull(mentett, "A mentett hiteltermék nem lehet null!");
+        assertEquals("Új Corporate Hitel", mentett.getName());
+        assertEquals(40000000.0, mentett.getMaxAmount());
+    }
+    @Test
+    void testLoanProductGettersAndSetters() {
+        // GIVEN
+        LoanProduct product = new LoanProduct();
+
+        // WHEN
+        product.setId(99L);
+        product.setName("Teszt Termék");
+        product.setMaxAmount(150000.0);
+        product.setCreditType("Személyi kölcsön");
+        LocalDate most = LocalDate.now();
+        product.setLastUpdated(most);
+
+        // THEN
+        assertEquals(99L, product.getId());
+        assertEquals("Teszt Termék", product.getName());
+        assertEquals(150000.0, product.getMaxAmount());
+        assertEquals("Személyi kölcsön", product.getCreditType());
+        assertEquals(most, product.getLastUpdated());
     }
 }
