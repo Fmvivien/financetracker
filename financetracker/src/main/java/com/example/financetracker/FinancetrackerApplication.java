@@ -15,6 +15,7 @@ public class FinancetrackerApplication {
 		SpringApplication.run(FinancetrackerApplication.class, args);
 	}
 
+
 	@Bean
 	public CommandLineRunner demoData(LoanProductRepository repository) {
 		return args -> {
