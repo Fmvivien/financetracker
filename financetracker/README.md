@@ -1,30 +1,59 @@
-# Finance Tracker - Banki Hiteltermék Kezelő és Elemző API
+# Finance Tracker - Corporate Loan Product Catalog API
 
-Ez egy **Spring Boot** alapú backend REST API projekt, amely a vállalati banki hiteltermékek (pl. Széchenyi Kártya programok, Garantiqa kezességgel biztosított hitelek) strukturált kezelését, nyilvántartását és kockázati szűrését valósítja meg.
+A Spring Boot-based RESTful backend API designed for the structured management, tracking, and risk-based filtering of corporate loan products (e.g., Széchenyi Card programs, state-guaranteed loans).
 
-A projekt elsődleges célja a **10 éves corporate banki, KYC és Compliance iparági tapasztalatom (Domain Knowledge)** ötvözése a modern **szoftverfejlesztői és adatbázis-kezelési** ismereteimmel.
+**The primary objective of this project** is to merge my 10+ years of domain knowledge in **Corporate Banking, KYC, and Compliance** with modern enterprise software engineering and relational database practices.
 
-## 🚀 Főbb Funkciók és Üzleti Logika
-- **Strukturált Hiteltermék Modell:** Pénzügyi entitások kezelése (hitel típusa, maximális hitelösszeg, hitel neve, utolsó módosítás dátuma).
-- **Kockázati és Termékalapú Szűrés:** REST végponton keresztüli dinamikus adatmanipuláció és szűrés.
-- **Automatizált Adat-inicializálás:** A rendszer induláskor automatikusan ellenőrzi a perzisztens réteget, és szükség esetén feltölti a piacvezető hazai államilag támogatott hitelkonstrukciók adataival.
+---
 
-## 🛠️ Alkalmazott Technológiák (Tech Stack)
+## 🎯 Key Features & Business Logic
+
+- **Structured Loan Product Model:** Comprehensive management of financial entities (including credit types, maximum loan amounts, product names, and audit timestamps).
+- **Risk & Product Filtering:** Dynamic data manipulation and server-side filtering via REST endpoints.
+- **Automated Data Initialization:** The system checks the persistence layer upon startup and automatically populates the database with real-world market configurations if empty.
+
+---
+
+## 🛠️ Tech Stack
+
 - **Backend:** Java 21, Spring Boot 3.x
-- **Adatkezelés & Perzisztencia:** Spring Data JPA, Hibernate ORM
-- **Adatbázis:** **MySQL** (Relációs, perzisztens vállalati adatbázis-integráció a korábbi in-memory H2 helyett)
-- **Minőségbiztosítás / Tesztelés:** JUnit 5, Mockito (Mock MVC architektúra tesztelés a Controller rétegben)
-- **Projektmenedzsment & Verziókövetés:** Maven, Git / GitHub
+- **Data & Persistence:** Spring Data JPA, Hibernate ORM
+- **Database:** MySQL (Production-ready relational integration)
+- **Quality Assurance & Testing:** JUnit 5, Mockito (Robust isolation and mock architecture)
+- **Project Management:** Maven, Git / GitHub
 
-## 📐 Architektúra és Tiszta Kód (Clean Code)
-A projekt tervezése során kiemelt figyelmet fordítottam a rétegzett architektúra és a **SOLID elvek** követésére:
-- **Controller Réteg:** Fogadja a kliensoldali HTTP kéréseket és kezeli a REST API végpontokat.
-- **Repository Réteg:** Interfész-alapú adatbázis-kapcsolat a Spring Data JPA segítségével.
-- **Automated Testing:** Magas tesztlefedettség a Controller rétegen, Mockito-val izolált adatbázis-szimulációval (Mocking), követve a *Given-When-Then* struktúrát.
-- **Biztonság (Security Best Practices):** Az adatbázis-jelszavak és érzékeny adatok kiszervezésre kerültek a forráskódból környezeti változókba (`Environment Variables`), megakadályozva a kritikus adatok repozitóriumba kerülését.
+---
 
-## 💻 Lokális indítás és futtatás
-1. Klónozd a repozitóriumot: `git clone https://github.com`
-2. Hozz létre egy lokális MySQL sémát `financetracker` néven.
-3. Állítsd be a `DB_PASSWORD` környezeti változót a saját MySQL jelszavadra.
-4. Indítsd el az alkalmazást: `./mvnw spring-boot:run`
+## 📐 Architecture & Clean Code
+
+The project strictly follows the **Layered Architecture** pattern and adheres to **SOLID** principles to ensure enterprise-grade maintainability:
+
+- **Controller Layer:** Exposes the REST API endpoints and handles incoming client HTTP requests.
+- **Service Layer (Business Logic):** Completely decouples business operations from the controllers, handling calculations and data mutations.
+- **DTO Pattern (Data Transfer Objects):** Implemented to secure internal database entities (`LoanProduct`) and encapsulate API data exposure.
+- **Automated Testing:** Achieved **100% Line Coverage** for key service and controller components using automated Mockito unit tests with the *Given-When-Then* structure.
+- **Security Best Practices:** Sensitive credentials (like database passwords) are externalized using **Environment Variables**, preventing critical leaks into the public repository.
+
+---
+
+## 🚀 Local Setup & Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com
+   ```
+
+2. **Database configuration:**
+   Create a local MySQL schema named `financetracker`.
+
+3. **Set Environment Variables:**
+   Configure your local system or IDE run configurations to include:
+   ```properties
+   DB_PASSWORD=your_local_mysql_password
+   ```
+
+4. **Run the application:**
+   Execute the following command in the project root:
+   ```bash
+   ./mvnw spring-boot:run
+   ```
