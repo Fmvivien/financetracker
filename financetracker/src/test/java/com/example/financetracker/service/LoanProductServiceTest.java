@@ -127,7 +127,7 @@ class LoanProductServiceTest {
 
         assertEquals(1L, eredmeny.get(0).getId());
         assertEquals("Hitel A", eredmeny.get(0).getName());
-        assertEquals(new BigDecimal(100000.00), eredmeny.get(0).getMaxAmount());
+        assertEquals(new BigDecimal("100000.00"), eredmeny.get(0).getMaxAmount());
 
         assertEquals(2L, eredmeny.get(1).getId());
         assertEquals("Hitel B", eredmeny.get(1).getName());
