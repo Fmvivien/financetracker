@@ -4,6 +4,7 @@ import com.example.financetracker.dto.LoanProductDTO;
 import com.example.financetracker.service.LoanProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class LoanProductController {
     }
 
     @GetMapping("/szures")
-    public List<LoanProductDTO> getHighAmountLoans(@RequestParam double limit) {
+    public List<LoanProductDTO> getHighAmountLoans(@RequestParam BigDecimal limit) {
         return service.getHighAmountLoans(limit);
     }
 }

@@ -1,18 +1,19 @@
 package com.example.financetracker.dto;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 public class LoanProductDTO {
     private Long id;
     private String name;
-    private double maxAmount;
+    private BigDecimal maxAmount;
     private String creditType;
     private LocalDate lastUpdated;
 
     public LoanProductDTO() {}
 
 
-    public LoanProductDTO(Long id, String name, double maxAmount, String creditType, LocalDate lastUpdated) {
+    public LoanProductDTO(Long id, String name, BigDecimal maxAmount, String creditType, LocalDate lastUpdated) {
         this.id = id;
         this.name = name;
         this.maxAmount = maxAmount;
@@ -26,8 +27,8 @@ public class LoanProductDTO {
     public String getName() { return name; }
     public void setName(String name) { this.name = name; }
 
-    public double getMaxAmount() { return maxAmount; }
-    public void setMaxAmount(double maxAmount) { this.maxAmount = maxAmount; }
+    public BigDecimal getMaxAmount() { return maxAmount; }
+    public void setMaxAmount(BigDecimal maxAmount) { this.maxAmount = maxAmount; }
 
     public String getCreditType() { return creditType; }
     public void setCreditType(String creditType) { this.creditType = creditType; }

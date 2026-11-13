@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -31,8 +32,8 @@ class LoanProductControllerTest {
     @Test
     void testGetAllProducts() {
         // GIVEN
-        LoanProductDTO dto1 = new LoanProductDTO(1L, "Hitel 1", 500000.0, "Lakossági", LocalDate.now());
-        LoanProductDTO dto2 = new LoanProductDTO(2L, "Hitel 2", 800000.0, "Lakossági", LocalDate.now());
+        LoanProductDTO dto1 = new LoanProductDTO(1L, "Hitel 1", new BigDecimal(500000.00), "Lakossági", LocalDate.now());
+        LoanProductDTO dto2 = new LoanProductDTO(2L, "Hitel 2", new BigDecimal(800000.00), "Lakossági", LocalDate.now());
         when(service.getAllProducts()).thenReturn(Arrays.asList(dto1, dto2));
 
         // WHEN
@@ -46,8 +47,8 @@ class LoanProductControllerTest {
     @Test
     void testGetHighAmountLoans() {
         // GIVEN
-        double limit = 1000000.0;
-        LoanProductDTO dragaHitel = new LoanProductDTO(2L, "Drága Hitel", 2500000.0, "Forgóeszköz", LocalDate.now());
+        BigDecimal limit = BigDecimal.valueOf(1000000.0);
+        LoanProductDTO dragaHitel = new LoanProductDTO(2L, "Drága Hitel", new BigDecimal(2500000.00), "Forgóeszköz", LocalDate.now());
         when(service.getHighAmountLoans(limit)).thenReturn(Arrays.asList(dragaHitel));
 
         // WHEN
@@ -62,8 +63,8 @@ class LoanProductControllerTest {
     @Test
     void testCreateProduct_Success() {
         // GIVEN
-        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Új Corporate Hitel", 40000000.0, "Beruházási", LocalDate.now());
-        LoanProductDTO mentettDTO = new LoanProductDTO(1L, "Új Corporate Hitel", 40000000.0, "Beruházási", LocalDate.now());
+        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Új Corporate Hitel", new BigDecimal(40000000.00), "Beruházási", LocalDate.now());
+        LoanProductDTO mentettDTO = new LoanProductDTO(1L, "Új Corporate Hitel", new BigDecimal(40000000.00), "Beruházási", LocalDate.now());
         when(service.createProduct(any(LoanProductDTO.class))).thenReturn(mentettDTO);
 
         // WHEN

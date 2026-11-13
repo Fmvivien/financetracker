@@ -5,6 +5,7 @@ import com.example.financetracker.model.LoanProduct;
 import com.example.financetracker.repository.LoanProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,11 +41,11 @@ public class LoanProductService {
         return convertToDTO(savedProduct);
     }
 
-    public List<LoanProductDTO> getHighAmountLoans(double limit) {
+    public List<LoanProductDTO> getHighAmountLoans(BigDecimal limit) {
         return repository.findAll().stream()
-                .filter(product -> product.getMaxAmount() >= limit)
+                .filter(loan -> loan.getMaxAmount() != null && loan.getMaxAmount().compareTo(limit) >= 0)
                 .map(this::convertToDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
     private LoanProductDTO convertToDTO(LoanProduct product) {
