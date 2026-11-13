@@ -63,8 +63,8 @@ class LoanProductControllerTest {
     @Test
     void testCreateProduct_Success() {
         // GIVEN
-        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Új Corporate Hitel", new BigDecimal(40000000.00), "Beruházási", LocalDate.now());
-        LoanProductDTO mentettDTO = new LoanProductDTO(1L, "Új Corporate Hitel", new BigDecimal(40000000.00), "Beruházási", LocalDate.now());
+        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Új Corporate Hitel", new BigDecimal("40000000.00"), "Beruházási", LocalDate.now());
+        LoanProductDTO mentettDTO = new LoanProductDTO(1L, "Új Corporate Hitel", new BigDecimal("40000000.00"), "Beruházási", LocalDate.now());
         when(service.createProduct(any(LoanProductDTO.class))).thenReturn(mentettDTO);
 
         // WHEN
@@ -74,6 +74,6 @@ class LoanProductControllerTest {
         assertNotNull(mentett);
         assertEquals(1L, mentett.getId());
         assertEquals("Új Corporate Hitel", mentett.getName());
-        assertEquals(40000000.0, mentett.getMaxAmount());
+        assertEquals(new BigDecimal("40000000.00"), mentett.getMaxAmount());
     }
 }

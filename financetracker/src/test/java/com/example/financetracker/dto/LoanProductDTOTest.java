@@ -17,14 +17,14 @@ class LoanProductDTOTest {
         // WHEN
         dto.setId(10L);
         dto.setName("Teszt Hitel");
-        dto.setMaxAmount(BigDecimal.valueOf(1500000.0));
+        dto.setMaxAmount(new BigDecimal("1500000.00"));
         dto.setCreditType("Személyi kölcsön");
         dto.setLastUpdated(most);
 
         // THEN
         assertEquals(10L, dto.getId());
         assertEquals("Teszt Hitel", dto.getName());
-        assertEquals(1500000.0, dto.getMaxAmount());
+        assertEquals(new BigDecimal("1500000.00"), dto.getMaxAmount());
         assertEquals("Személyi kölcsön", dto.getCreditType());
         assertEquals(most, dto.getLastUpdated());
     }
@@ -40,7 +40,7 @@ class LoanProductDTOTest {
         // THEN
         assertEquals(20L, dto.getId());
         assertEquals("Lakáshitel", dto.getName());
-        assertEquals(50000000.0, dto.getMaxAmount());
+        assertEquals(new BigDecimal(50000000.00), dto.getMaxAmount());
         assertEquals("Jelzálog", dto.getCreditType());
         assertEquals(most, dto.getLastUpdated());
     }
