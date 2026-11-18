@@ -33,12 +33,12 @@ class LoanProductServiceTest {
     @Test
     void testGetHighAmountLoans_FiltersCorrectly() {
         // GIVEN
-        LoanProduct olcsoHitel = new LoanProduct("Olcsó Hitel", new BigDecimal(5000000.00), "Beruházás", LocalDate.now());
-        LoanProduct dragaHitel = new LoanProduct("Drága Hitel", new BigDecimal(25000000.00), "Forgóeszköz", LocalDate.now());
+        LoanProduct olcsoHitel = new LoanProduct("Olcsó Hitel", new BigDecimal("5000000.00"), "Beruházás", LocalDate.now());
+        LoanProduct dragaHitel = new LoanProduct("Drága Hitel", new BigDecimal("25000000.00"), "Forgóeszköz", LocalDate.now());
         when(repository.findAll()).thenReturn(Arrays.asList(olcsoHitel, dragaHitel));
 
         // WHEN
-        List<LoanProductDTO> eredmeny = service.getHighAmountLoans(new BigDecimal(10000000.00));
+        List<LoanProductDTO> eredmeny = service.getHighAmountLoans(new BigDecimal("10000000.00"));
 
         // THEN
         assertEquals(1, eredmeny.size(), "A listában pontosan 1 elemnek kellene lennie!");
@@ -48,11 +48,11 @@ class LoanProductServiceTest {
     @Test
     void testGetHighAmountLoans_EdgeCase_LimitEqualsMaxAmount() {
         // GIVEN
-        LoanProduct pontosanTizMillios = new LoanProduct("Széchenyi Hitel", new BigDecimal(10000000.00), "Forgóeszköz", LocalDate.now());
+        LoanProduct pontosanTizMillios = new LoanProduct("Széchenyi Hitel", new BigDecimal("10000000.00"), "Forgóeszköz", LocalDate.now());
         when(repository.findAll()).thenReturn(Arrays.asList(pontosanTizMillios));
 
         // WHEN
-        List<LoanProductDTO> eredmeny = service.getHighAmountLoans(new BigDecimal(10000000.00));
+        List<LoanProductDTO> eredmeny = service.getHighAmountLoans(new BigDecimal("10000000.00"));
 
         // THEN
         assertEquals(1, eredmeny.size(), "Ha a limit megegyezik a hitelösszeggel, a listában 1 elemnek kell lennie!");
@@ -61,12 +61,12 @@ class LoanProductServiceTest {
     @Test
     void testGetHighAmountLoans_NoMatch() {
         // GIVEN
-        LoanProduct hitel1 = new LoanProduct("Kis Hitel 1", new BigDecimal(500000.00), "Lakossági", LocalDate.now());
-        LoanProduct hitel2 = new LoanProduct("Kis Hitel 2", new BigDecimal(800000.00), "Lakossági", LocalDate.now());
+        LoanProduct hitel1 = new LoanProduct("Kis Hitel 1", new BigDecimal("500000.00"), "Lakossági", LocalDate.now());
+        LoanProduct hitel2 = new LoanProduct("Kis Hitel 2", new BigDecimal("800000.00"), "Lakossági", LocalDate.now());
         when(repository.findAll()).thenReturn(Arrays.asList(hitel1, hitel2));
 
         // WHEN
-        List<LoanProductDTO> eredmeny = service.getHighAmountLoans(new BigDecimal(5000000.00));
+        List<LoanProductDTO> eredmeny = service.getHighAmountLoans(new BigDecimal("5000000.00"));
 
         // THEN
         assertEquals(0, eredmeny.size(), "Olyan határértékre, amire nincs egyező termék, üres listát kell kapnunk!");
@@ -75,9 +75,9 @@ class LoanProductServiceTest {
     @Test
     void testCreateProduct_WhenDateIsNull_SetsCurrentDate() {
         // GIVEN
-        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Próba", new BigDecimal(5000.00), "Folyószámlahitel", null);
+        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Próba", new BigDecimal("5000.00"), "Folyószámlahitel", null);
 
-        LoanProduct mentettEntity = new LoanProduct("Próba", new BigDecimal(5000.00), "Folyószámlahitel", LocalDate.now());
+        LoanProduct mentettEntity = new LoanProduct("Próba", new BigDecimal("5000.00"), "Folyószámlahitel", LocalDate.now());
         mentettEntity.setId(1L);
 
         when(repository.save(any(LoanProduct.class))).thenReturn(mentettEntity);
@@ -93,9 +93,9 @@ class LoanProductServiceTest {
     void testCreateProduct_WhenDateIsProvided_KeepsprovidedDate() {
         // GIVEN
         LocalDate egyediDatum = LocalDate.of(2026, 11, 5);
-        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Egyedi Dátumos Hitel", new BigDecimal(75000.00), "Lakossági", egyediDatum);
+        LoanProductDTO bejovoDTO = new LoanProductDTO(null, "Egyedi Dátumos Hitel", new BigDecimal("75000.00"), "Lakossági", egyediDatum);
 
-        LoanProduct mentettEntity = new LoanProduct("Egyedi Dátumos Hitel", new BigDecimal(75000.00), "Lakossági", egyediDatum);
+        LoanProduct mentettEntity = new LoanProduct("Egyedi Dátumos Hitel", new BigDecimal("75000.00"), "Lakossági", egyediDatum);
         mentettEntity.setId(5L);
 
         when(repository.save(any(LoanProduct.class))).thenReturn(mentettEntity);
@@ -111,8 +111,8 @@ class LoanProductServiceTest {
     @Test
     void testGetAllProducts_ReturnsConvertedDtoList() {
         // GIVEN
-        LoanProduct hitel1 = new LoanProduct("Hitel A", new BigDecimal(100000.00), "Típus A", LocalDate.now());
-        LoanProduct hitel2 = new LoanProduct("Hitel B", new BigDecimal(200000.00), "Típus B", LocalDate.now());
+        LoanProduct hitel1 = new LoanProduct("Hitel A", new BigDecimal("100000.00"), "Típus A", LocalDate.now());
+        LoanProduct hitel2 = new LoanProduct("Hitel B", new BigDecimal("200000.00"), "Típus B", LocalDate.now());
 
         hitel1.setId(1L);
         hitel2.setId(2L);

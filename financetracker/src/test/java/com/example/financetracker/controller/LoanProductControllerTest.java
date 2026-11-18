@@ -32,8 +32,8 @@ class LoanProductControllerTest {
     @Test
     void testGetAllProducts() {
         // GIVEN
-        LoanProductDTO dto1 = new LoanProductDTO(1L, "Hitel 1", new BigDecimal(500000.00), "Lakossági", LocalDate.now());
-        LoanProductDTO dto2 = new LoanProductDTO(2L, "Hitel 2", new BigDecimal(800000.00), "Lakossági", LocalDate.now());
+        LoanProductDTO dto1 = new LoanProductDTO(1L, "Hitel 1", new BigDecimal("500000.00"), "Lakossági", LocalDate.now());
+        LoanProductDTO dto2 = new LoanProductDTO(2L, "Hitel 2", new BigDecimal("800000.00"), "Lakossági", LocalDate.now());
         when(service.getAllProducts()).thenReturn(Arrays.asList(dto1, dto2));
 
         // WHEN
@@ -47,8 +47,8 @@ class LoanProductControllerTest {
     @Test
     void testGetHighAmountLoans() {
         // GIVEN
-        BigDecimal limit = BigDecimal.valueOf(1000000.0);
-        LoanProductDTO dragaHitel = new LoanProductDTO(2L, "Drága Hitel", new BigDecimal(2500000.00), "Forgóeszköz", LocalDate.now());
+        BigDecimal limit = new BigDecimal("1000000.00");
+        LoanProductDTO dragaHitel = new LoanProductDTO(2L, "Drága Hitel", new BigDecimal("2500000.00"), "Forgóeszköz", LocalDate.now());
         when(service.getHighAmountLoans(limit)).thenReturn(Arrays.asList(dragaHitel));
 
         // WHEN

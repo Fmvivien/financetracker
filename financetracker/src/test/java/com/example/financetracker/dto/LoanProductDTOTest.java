@@ -35,12 +35,12 @@ class LoanProductDTOTest {
         LocalDate most = LocalDate.now();
 
         // WHEN
-        LoanProductDTO dto = new LoanProductDTO(20L, "Lakáshitel", new BigDecimal(50000000.00), "Jelzálog", most);
+        LoanProductDTO dto = new LoanProductDTO(20L, "Lakáshitel", new BigDecimal("50000000.00"), "Jelzálog", most);
 
         // THEN
         assertEquals(20L, dto.getId());
         assertEquals("Lakáshitel", dto.getName());
-        assertEquals(new BigDecimal(50000000.00), dto.getMaxAmount());
+        assertEquals(new BigDecimal("50000000.00"), dto.getMaxAmount());
         assertEquals("Jelzálog", dto.getCreditType());
         assertEquals(most, dto.getLastUpdated());
     }
